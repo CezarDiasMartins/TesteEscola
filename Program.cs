@@ -50,16 +50,3 @@ namespace TesteEscolaMVC
         }
     }
 }
-
-
-/* Desenvolver uma aplicação web responsável por simular ações básicas de uma escola:
-1.	Cadastrar aluno (nome, sobrenome e série)
-2.	Cadastrar curso (nome)
-3.	Lançar uma nota por curso;
-4.	Relatório com alunos por curso e notas
-
-Regras gerais:
-a)	Deve fazer uso do .Net Core;
-b)	Pode fazer uso do blazor ou razor;
-c)	A aplicação deverá gravar e obter os dados utilizando o Entity;
-d)	A aplicação será executada pelo candidato no dia da entrevista e este deverá explicar o código fonte implementado. */
