@@ -1,0 +1,57 @@
+﻿@model AlunoCursosViewModels
+@{
+    ViewData["Title"] = "Editar Aluno";
+}
+
+<form asp-controller="Aluno" asp-action="Edit" method="post">
+    <input type="hidden" asp-for="Aluno.Id" />
+
+    <div class="d-flex justify-content-evenly align-items-start">
+        <div class="form-group inputAluno">
+            <label for="nome">Nome</label>
+            <input type="text" asp-for="Aluno.Nome" class="form-control" placeholder="Digite o nome do aluno">
+            <span asp-validation-for="Aluno.Nome" class="text-danger"></span>
+        </div>
+
+        <div class="form-group inputAluno">
+            <label for="sobrenome">Sobrenome</label>
+            <input type="text" asp-for="Aluno.Sobrenome" class="form-control" placeholder="Digite o sobrenome do aluno">
+            <span asp-validation-for="Aluno.Sobrenome" class="text-danger"></span>
+        </div>
+
+        <div class="form-group inputSerieAluno">
+            <label for="serie">Série</label>
+            <input type="text" asp-for="Aluno.Serie" class="form-control">
+            <span asp-validation-for="Aluno.Serie" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-start align-items-center">
+        <div class="cursosAluno">
+            <label>Cursos</label>
+            <div class="form-group">
+                @for (int i = 0; i < Model.CursosNotasDisponiveis.Cursos.Count; i++)
+                {
+                    var curso = Model.CursosNotasDisponiveis.Cursos[i];
+                    var nota = Model.CursosNotasDisponiveis.Notas.FirstOrDefault(n => n.CursoId == curso.Id && n.AlunoId == Model.Aluno.Id)?.Nota ?? 0;
+
+                    <div class="d-flex justify-content-start align-items-center cursoAluno">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="IdCursosSelecionadosIdNotasInseridas.IdCurso" value="@curso.Id" id="curso_@curso.Id" @(Model.IdCursosSelecionadosIdNotasInseridas.IdCurso.Contains(curso.Id) ? "checked" : "") />
+                            <label class="form-check-label" for="curso_@curso.Id">@curso.Nome</label>
+                        </div>
+                        <div class="form-group d-flex justify-content-start align-items-center nota">
+                            <label class="form-check-label notaLabel" for="nota_@curso.Id">Nota:</label>
+                            <input class="form-control bg-light notaInput" type="text" name="IdCursosSelecionadosIdNotasInseridas.ValorNota[@i]" value="@nota" id="nota_@curso.Id" oninput="validateInput(this)" />
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-center align-items-center mt-3">
+        <button type="submit" class="botao">Editar</button>
+        <a class="botaoVoltar mx-1" asp-controller="Home" asp-action="Index" role="button">Voltar</a>
+    </div>
+</form>
